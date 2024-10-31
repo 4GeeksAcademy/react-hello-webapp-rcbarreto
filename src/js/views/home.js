@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import rigoImage from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
+import Cards from "../component/cards";
 
 export const Home = () => {
 
 	const [ people, setPeople] = useState ([])
 	useEffect(()=>{
-		fetch("https://www.swapi.tech/api/planets")
+		fetch("https://www.swapi.tech/api/people")
 		.then(res => res.json())
 		.then(data => setPeople(data.results))
 		.catch(err => console.error(err))
@@ -16,7 +17,8 @@ export const Home = () => {
 		{
 			people.map((item,index)=>{
 			return(
-				<h1 key={index}> {item.name} </h1>
+				
+				<Cards key={index} name={item.name} uid = {item.uid}> </Cards>
 			)	
 			})
 			
