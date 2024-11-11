@@ -5,90 +5,85 @@ import { Context } from "../store/appContext";
 const Details = () => {
   const params = useParams();
   const { store, actions } = useContext(Context);
-  
-  
   const [data, setData] = useState(null);
 
   useEffect(() => {
+    // Cargar datos si no están en el store
     if (params.nature === "people" && !store.people.length) {
-      actions.loadPeople();  // Carga las personas si no están en el store
+      actions.loadPeople();
     }
     if (params.nature === "planets" && !store.planets.length) {
-      actions.loadPlanets();  // Carga los planetas si no están en el store
+      actions.loadPlanets();
     }
-  }, [store.people, store.planets, actions, params.nature]); // Dependemos de las personas y planetas en el store
+    if (params.nature === "vehicles" && !store.vehicles.length) {
+      actions.loadVehicles();
+    }
+  }, [store.people, store.planets, store.vehicles, actions, params.nature]);
 
-  // Dependiendo del tipo (people o planets), buscamos la información correspondiente
+  // Buscar y guardar datos según el tipo (people, planets o vehicles)
   useEffect(() => {
     if (params.nature === "people") {
       const foundPerson = store.people.find(person => person.uid === params.id);
-      if (foundPerson) {
-        setData(foundPerson);  // Si encontramos la persona, la guardamos
-      }
+      if (foundPerson) setData(foundPerson);
     } else if (params.nature === "planets") {
       const foundPlanet = store.planets.find(planet => planet.uid === params.id);
-      if (foundPlanet) {
-        setData(foundPlanet);  // Si encontramos el planeta, lo guardamos
-      }
+      if (foundPlanet) setData(foundPlanet);
+    } else if (params.nature === "vehicles") {
+      const foundVehicle = store.vehicles.find(vehicle => vehicle.uid === params.id);
+      if (foundVehicle) setData(foundVehicle);
     }
-  }, [store.people, store.planets, params.id, params.nature]); // Dependemos de store y params
+  }, [store.people, store.planets, store.vehicles, params.id, params.nature]);
 
-  // Si no hay datos aún, mostramos un mensaje de carga
-  if (!data) {
-    return ;
-  }
+  if (!data) return <p>Loading...</p>;
 
-  if (params.nature === "people"){
-  // Renderizamos la tarjeta dependiendo de si es una persona o un planeta
-  return (
-    <div className="card m-2 " style={{ width: "18rem" }}>
-      <div className="card-body">
-      <div className="text-start m-2 d-flex justify-content-between">
-        <img 
-          src={`https://starwars-visualguide.com/assets/img/characters/${params.id}.jpg`} 
-          className="card-img-top" 
-          alt="..."
-          
-        />
-        </div>
-        <h5 className="card-title">{data.properties.name}</h5>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, laudantium. Et, laborum. Adipisci eveniet ducimus perferendis libero corrupti magnam rem temporibus? Accusamus ut vero veritatis perspiciatis minus. Sunt, enim totam!</p>
-         </div>
-        <div>
-            <p>Birth</p>
-            <p>Year</p>
-            <p>{data.properties.birth_year}</p>
-        </div>
-
-    </div>
-  );
-};
-
-
-if  (params.nature === "people"){
-    // Renderizamos la tarjeta dependiendo de si es una persona o un planeta
+  // Renderizar según el tipo de datos
+  if (params.nature === "people") {
     return (
-      <div className="card m-2 " style={{ width: "18rem" }}>
+      <div className="card m-2" style={{ width: "18rem" }}>
         <div className="card-body">
-        <div className="text-start m-2 d-flex justify-content-between">
-          <img 
-            src={`https://starwars-visualguide.com/assets/img/characters/${params.id}.jpg`} 
-            className="card-img-top" 
-            alt="..."
-            
+          <img
+            src={`https://starwars-visualguide.com/assets/img/characters/${params.id}.jpg`}
+            className="card-img-top"
+            alt="Character"
           />
-          </div>
           <h5 className="card-title">{data.properties.name}</h5>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, laudantium. Et, laborum. Adipisci eveniet ducimus perferendis libero corrupti magnam rem temporibus? Accusamus ut vero veritatis perspiciatis minus. Sunt, enim totam!</p>
-           </div>
-          <div>
-              <p>Birth</p>
-              <p>Year</p>
-              <p>{data.properties.birth_year}</p>
-          </div>
-  
+          <p>{data.properties.birth_year}</p>
+        </div>
       </div>
     );
-  };
-}  
+  } else if (params.nature === "planets") {
+    return (
+      <div className="card m-2" style={{ width: "18rem" }}>
+        <div className="card-body">
+          <img
+            src={`https://starwars-visualguide.com/assets/img/planets/${params.id}.jpg`}
+            className="card-img-top"
+            alt="Planet"
+          />
+          <h5 className="card-title">{data.properties.name}</h5>
+          <p>Population: {data.properties.population}</p>
+          <p>Climate: {data.properties.climate}</p>
+        </div>
+      </div>
+    );
+  } else if (params.nature === "vehicles") {
+    return (
+      <div className="card m-2" style={{ width: "18rem" }}>
+        <div className="card-body">
+          <img
+            src={`https://starwars-visualguide.com/assets/img/vehicles/${params.id}.jpg`}
+            className="card-img-top"
+            alt="Vehicle"
+          />
+          <h5 className="card-title">{data.properties.name}</h5>
+          <p>Model: {data.properties.model}</p>
+          <p>Manufacturer: {data.properties.manufacturer}</p>
+        </div>
+      </div>
+    );
+  }
+  
+  return null;
+};
+
 export default Details;
