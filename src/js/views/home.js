@@ -9,20 +9,20 @@ export const Home = () => {
 
   
  	
-	return <div className="text-center mt-5">
+	return 
+			<div className="text-center m-5">
 		
 				<h1>Star Wars API</h1>
 
 
 		
-		<div className="container">
-      		<h2>Personajes</h2>
-      		<div className="row">
+		<div className="container text-danger" m-10>
+      		<h2 className="text-danger" m-10>Personajes</h2>
+      		<div>
         
         		{store.people.map((item, index) => {
 								
-						console.log(item)
-							
+									
 					return (
 											
 			            <div key={index} className="col-12 col-md-6 col-lg-3 mb-4">
@@ -46,8 +46,7 @@ export const Home = () => {
         
         		{store.planets.map((item,index)=>{
 
-					console.log(item)
-
+					
 					 return (
 
 			            <div key={index} className="col-12 col-md-6 col-lg-3 mb-4">
@@ -66,8 +65,7 @@ export const Home = () => {
         
         		{store.vehicles.map((item,index)=>{
 
-					console.log(item)
-					
+				
 					 return (
 
 			            <div key={index} className="col-12 col-md-6 col-lg-3 mb-4">
