@@ -3,7 +3,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			people: [],
 			planets: [],
-			vehicles: []
+			vehicles: [],
+			favorites: []
 			
 		},
 		actions: {
@@ -97,6 +98,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error(err);
 				}
 			},
+
+			
+			Favorite: (item) => {
+                const store = getStore();
+                const { uid, type } = item;
+                
+                // Revisar si el elemento ya está en favoritos por su UID y tipo
+                const existingFavorite = store.favorites.find(fav => fav.uid === uid && fav.type === type);
+
+                if (existingFavorite) {
+                    // Si existe, eliminarlo
+                    setStore({
+                        favorites: store.favorites.filter(fav => !(fav.uid === uid && fav.type === type))
+                    });
+                } else {
+                    // Si no existe, añadirlo
+                    setStore({
+                        favorites: [...store.favorites, item]
+                    });
+                }
+            },
 
 				
 
