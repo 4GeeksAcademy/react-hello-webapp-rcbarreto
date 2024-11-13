@@ -36,17 +36,17 @@ const Details = () => {
 
   if (!data) return <p>Loading...</p>;
 
-  // Renderizar según el tipo de datos
+  
   if (params.nature === "people") {
     return (
 <div className="card mt-5 bg-dark text-white w-50 mx-auto">
   <div className="card-body d-flex">
-    {/* Columna de Imagen */}
+    
     <div className="me-3">
-      <img src={`https://starwars-visualguide.com/assets/img/characters/${params.id}.jpg`} alt="Character Image" className="img-fluid" />
+      <img src={`https://starwars-visualguide.com/assets/img/characters/${params.id}.jpg`} className="img-fluid" />
     </div>
     
-    {/* Columna de Nombre y Descripción */}
+    
     <div>
       <h2>{data.properties.name}</h2>
       <p className="text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur excepturi quae fugit facere assumenda dolorem, quas asperiores necessitatibus magni optio aliquid unde expedita, culpa ipsum. Exercitationem architecto inventore doloribus temporibus?</p>
@@ -85,26 +85,21 @@ const Details = () => {
       </div>
     </div>
   </div>
-
-
-
-
-
-
-     
+  
     );
+
   } else if (params.nature === "planets") {
     return (
 
       
 <div className="card mt-5 bg-dark text-white w-50 mx-auto">
   <div className="card-body d-flex">
-    {/* Columna de Imagen */}
+    
     <div className="me-3">
-      <img src={`https://starwars-visualguide.com/assets/img/planets/${params.id}.jpg`} alt="Character Image" className="img-fluid" />
+      <img src={`https://starwars-visualguide.com/assets/img/planets/${params.id}.jpg`} className="img-fluid" />
     </div>
     
-    {/* Columna de Nombre y Descripción */}
+    
     <div>
       <h2>{data.properties.name}</h2>
       <p className="text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur excepturi quae fugit facere assumenda dolorem, quas asperiores necessitatibus magni optio aliquid unde expedita, culpa ipsum. Exercitationem architecto inventore doloribus temporibus?</p>
@@ -146,26 +141,58 @@ const Details = () => {
       
     );
 
-
-
   } else if (params.nature === "vehicles") {
     return (
-      <div className="card m-2" style={{ width: "18rem" }}>
-        <div className="card-body">
-          <img
-            src={`https://starwars-visualguide.com/assets/img/vehicles/${params.id}.jpg`}
-            className="card-img-top"
-            alt="Vehicle"
-          />
-          <h5 className="card-title">{data.properties.name}</h5>
-          <p>Model: {data.properties.model}</p>
-          <p>Manufacturer: {data.properties.manufacturer}</p>
+      <div className="card mt-5 bg-dark text-white w-50 mx-auto">
+      <div className="card-body d-flex">
+        
+        <div className="me-3">
+          <img src={`https://starwars-visualguide.com/assets/img/vehicles/${params.id}.jpg`}  className="img-fluid" />
+        </div>
+        
+        
+        <div>
+          <h2>{data.properties.name}</h2>
+          <p className="text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur excepturi quae fugit facere assumenda dolorem, quas asperiores necessitatibus magni optio aliquid unde expedita, culpa ipsum. Exercitationem architecto inventore doloribus temporibus?</p>
+        </div>
+      </div>
+        
+      <div className="card-footer bg-danger text-white">
+        <div className="container">
+          <div className="row text-center">
+            <div className="col-2">
+              <label className="fw-bold">Name</label>
+              <p>{data.properties.name}</p>
+            </div>
+            <div className="col-2">
+              <label className="fw-bold">Manufacturer</label>
+              <p>{data.properties.manufacturer}</p>
+            </div>
+            <div className="col-2">
+              <label className="fw-bold">Model</label>
+              <p>{data.properties.model}</p>
+            </div>
+            <div className="col-2">
+              <label className="fw-bold">Vechicle Class</label>
+              <p>{data.properties.vehicle_class}</p>
+            </div>
+            <div className="col-2">
+              <label className="fw-bold">Passengers</label>
+              <p>{data.properties.passengers}</p>
+            </div>
+            <div className="col-2">
+              <label className="fw-bold">Cost in credits</label>
+              <p>{data.properties.cost_in_credits}</p>
+            </div>
+          </div>
+            
+          </div>
         </div>
       </div>
     );
   }
   
-  return null;
+ 
 };
 
 export default Details;
